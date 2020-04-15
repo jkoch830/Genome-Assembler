@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'jacoco'
+
+test.testLogging {
+  exceptionFormat "full"
+  events "failed", "passed", "skipped"
+}
+
+configurations.all {
+  resolutionStrategy {
+    force 'org.ow2.asm:asm:6.2.1'
+    forcedModules = [ 'org.ow2.asm:asm:6.2.1' ]
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testCompile group: 'junit', name: 'junit', version: '4.11'
+  compile 'junit:junit:4.12'
+}
+
+buildscript {
+  repositories {
+    mavenCentral()
+    maven {
+      url 'https://plugins.gradle.org/m2/'
+    }
+  }
+}
+
+jacoco {
+  toolVersion = "0.8.2"
+}
+
+jacocoTestReport {
+  reports {
+    xml.enabled false
+    csv.enabled false
+    html.destination file("${buildDir}/reports/coverage")
+  }
+}
