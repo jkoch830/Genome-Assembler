@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/debuijn/BasicDeBruijnGraphTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/james.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/james.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/BasicDeBruijnGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/BasicDeBruijnGraph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/BasicDeBruijnGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/debuijn/BasicDeBruijnGraphTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/debuijn/BasicDeBruijnGraphTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +47,7 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
-  <component name="RunManager" selected="Application.MemoryTest">
+  <component name="RunManager" selected="Gradle.BasicDeBruijnGraphTest.testAdd">
     <configuration name="DeBruijnGraph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.genomeassembler.debruijn.DeBruijnGraph" />
       <module name="Genome_Aseembler.main" />
@@ -78,12 +76,56 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BasicDeBruijnGraphTest.testAdd" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.debuijn.BasicDeBruijnGraphTest.testAdd&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="BasicDeBruijnGraphTest.testInitialState" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.debuijn.BasicDeBruijnGraphTest.testInitialState&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.DeBruijnGraph" />
       <item itemvalue="Application.MemoryTest" />
+      <item itemvalue="Gradle.BasicDeBruijnGraphTest.testInitialState" />
+      <item itemvalue="Gradle.BasicDeBruijnGraphTest.testAdd" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.BasicDeBruijnGraphTest.testAdd" />
+        <item itemvalue="Gradle.BasicDeBruijnGraphTest.testInitialState" />
         <item itemvalue="Application.MemoryTest" />
         <item itemvalue="Application.DeBruijnGraph" />
       </list>
@@ -115,7 +157,7 @@
       <workItem from="1586987440424" duration="2576000" />
       <workItem from="1587001136871" duration="1618000" />
       <workItem from="1587003245458" duration="6877000" />
-      <workItem from="1587083381027" duration="4877000" />
+      <workItem from="1587083381027" duration="8028000" />
     </task>
     <servers />
   </component>
@@ -131,26 +173,26 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1587083652276" />
-    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1587089416362">
+    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1587140649253">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1587089416362" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587088412079">
+    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1587140649253" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587143220845">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587088412079" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587088412078">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587143220845" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587143220844">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587088412078" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587088412077">
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587143220844" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587143220843">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587088412077" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587088412078">
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587143220843" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587143220845">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587088412078" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587143220845" />
     <state width="1398" height="303" key="GridCell.Tab.1.bottom" timestamp="1587083362700">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

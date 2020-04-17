@@ -12,31 +12,31 @@ import java.util.Set;
  * and the graph is represented by an adjacency list. This is not suitable for
  * actual genome assembly due to the large memory requirements of strings.
  */
-public class BasicDeBruijnGraph implements DeBruijnGraph{
+public class BasicDeBruijnGraph implements DeBruijnGraph {
 
     private Map<String, List<String>> graph;
-    private Map<String, Integer> inDegrees;
+    private Map<String, List<String>> inNeighbors;
 
     public BasicDeBruijnGraph() {
         graph = new HashMap<>();
-        inDegrees = new HashMap<>();
+        inNeighbors = new HashMap<>();
     }
 
     @Override
-    public void addNode(String kmer) {
+    public void addKmer(String kmer) {
         int k = kmer.length();
         String prefix = kmer.substring(0, k - 1);
         String suffix = kmer.substring(1);
         if (!graph.containsKey(prefix)) {
             graph.put(prefix, new ArrayList<>());
-            inDegrees.put(prefix, 0);
+            inNeighbors.put(prefix, new ArrayList<>());
         }
         graph.get(prefix).add(suffix); // Adds an edge from prefix to suffix
         if (!graph.containsKey(suffix)) { // Initializes suffix as node
             graph.put(suffix, new ArrayList<>());
-            inDegrees.put(suffix, 0);
+            inNeighbors.put(suffix, new ArrayList<>());
         }
-        inDegrees.put(suffix, inDegrees.get(suffix) + 1);
+        inNeighbors.get(suffix).add(prefix);
     }
 
     @Override
@@ -45,8 +45,13 @@ public class BasicDeBruijnGraph implements DeBruijnGraph{
     }
 
     @Override
+    public List<String> getInNeighbors(String node) {
+        return (inNeighbors.containsKey(node)) ? inNeighbors.get(node) : new ArrayList<>();
+    }
+
+    @Override
     public int getInDegree(String node) {
-        return inDegrees.getOrDefault(node, -1);
+        return (inNeighbors.containsKey(node)) ? inNeighbors.get(node).size() : -1;
     }
 
     @Override

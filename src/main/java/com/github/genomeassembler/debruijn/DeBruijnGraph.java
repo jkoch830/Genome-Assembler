@@ -28,7 +28,7 @@ public interface DeBruijnGraph extends Iterable<String>{
      * already in the graph) and by adding an edge between the two nodes.
      * The length of both of the prefix and the suffix is k-1
      */
-    void addNode(String kmer);
+    void addKmer(String kmer);
 
 
     /**
@@ -37,6 +37,14 @@ public interface DeBruijnGraph extends Iterable<String>{
      * @return The list of neighbors, or an empty list if the node is absent
      */
     List<String> getOutNeighbors(String node);
+
+
+    /**
+     * Finds all the neighbors that have a directed edge to the given node
+     * @param node The node
+     * @return The list of neighbors, or an empty list if the node is absent
+     */
+    List<String> getInNeighbors(String node);
 
 
     /**
@@ -53,17 +61,4 @@ public interface DeBruijnGraph extends Iterable<String>{
      * @return The out-degree of the kmer, or -1 if the node is not found
      */
     int getOutDegree(String node);
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
