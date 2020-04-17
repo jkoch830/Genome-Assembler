@@ -1,0 +1,61 @@
+package com.github.genomeassembler.debruijn;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Naive implementation of a de Bruijn graph. Nodes are stored as strings
+ * and the graph is represented by an adjacency list. This is not suitable for
+ * actual genome assembly due to the large memory requirements of strings.
+ */
+public class BasicDeBruijnGraph implements DeBruijnGraph{
+
+    private Map<String, List<String>> graph;
+    private Map<String, Integer> inDegrees;
+
+    public BasicDeBruijnGraph() {
+        graph = new HashMap<>();
+        inDegrees = new HashMap<>();
+    }
+
+    @Override
+    public void addNode(String kmer) {
+        int k = kmer.length();
+        String prefix = kmer.substring(0, k - 1);
+        String suffix = kmer.substring(1);
+        if (!graph.containsKey(prefix)) {
+            graph.put(prefix, new ArrayList<>());
+            inDegrees.put(prefix, 0);
+        }
+        graph.get(prefix).add(suffix); // Adds an edge from prefix to suffix
+        if (!graph.containsKey(suffix)) { // Initializes suffix as node
+            graph.put(suffix, new ArrayList<>());
+            inDegrees.put(suffix, 0);
+        }
+        inDegrees.put(suffix, inDegrees.get(suffix) + 1);
+    }
+
+    @Override
+    public List<String> getOutNeighbors(String node) {
+        return (graph.containsKey(node)) ? graph.get(node) : new ArrayList<>();
+    }
+
+    @Override
+    public int getInDegree(String node) {
+        return inDegrees.getOrDefault(node, -1);
+    }
+
+    @Override
+    public int getOutDegree(String node) {
+        return (graph.containsKey(node)) ? graph.get(node).size() : -1;
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return graph.keySet().iterator();
+    }
+}

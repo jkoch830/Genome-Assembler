@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnGraph.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/debuijn/BasicDeBruijnGraphTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/james.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/james.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/BasicDeBruijnGraph.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,16 +42,18 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.13642055" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.MemoryTest">
     <configuration name="DeBruijnGraph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.genomeassembler.debruijn.DeBruijnGraph" />
       <module name="Genome_Aseembler.main" />
+      <option name="VM_PARAMETERS" value="-Xmx8292m" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.github.genomeassembler.debruijn.*" />
@@ -55,8 +64,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MemoryTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.genomeassembler.debruijn.MemoryTest" />
+      <module name="Genome_Aseembler.main" />
+      <option name="VM_PARAMETERS" value="-Xmx8192m " />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.genomeassembler.debruijn.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.DeBruijnGraph" />
+      <item itemvalue="Application.MemoryTest" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MemoryTest" />
         <item itemvalue="Application.DeBruijnGraph" />
       </list>
     </recent_temporary>
@@ -84,6 +112,10 @@
       <option name="presentableId" value="Default" />
       <updated>1586986665338</updated>
       <workItem from="1586986671672" duration="180000" />
+      <workItem from="1586987440424" duration="2576000" />
+      <workItem from="1587001136871" duration="1618000" />
+      <workItem from="1587003245458" duration="6877000" />
+      <workItem from="1587083381027" duration="4877000" />
     </task>
     <servers />
   </component>
@@ -91,13 +123,62 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="320" y="115" key="#Notifications" timestamp="1586986802181">
+    <state x="320" y="115" key="#Notifications" timestamp="1586986918098">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="115" key="#Notifications/0.0.1440.900@0.0.1440.900" timestamp="1586986802181" />
-    <state x="208" y="31" key="SettingsEditor" timestamp="1586986726025">
+    <state x="320" y="115" key="#Notifications/0.0.1440.900@0.0.1440.900" timestamp="1586986918098" />
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587083652276">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1586986726025" />
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1587083652276" />
+    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1587089416362">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1587089416362" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587088412079">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587088412079" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587088412078">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587088412078" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587088412077">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587088412077" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587088412078">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587088412078" />
+    <state width="1398" height="303" key="GridCell.Tab.1.bottom" timestamp="1587083362700">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="303" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587083362700" />
+    <state width="1398" height="303" key="GridCell.Tab.1.center" timestamp="1587083362698">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="303" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1587083362698" />
+    <state width="1398" height="303" key="GridCell.Tab.1.left" timestamp="1587083362696">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="303" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1587083362696" />
+    <state width="1398" height="303" key="GridCell.Tab.1.right" timestamp="1587083362699">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="303" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1587083362699" />
+    <state x="208" y="31" key="SettingsEditor" timestamp="1587084359745">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587084359745" />
+    <state x="399" y="278" key="com.intellij.ide.util.TipDialog" timestamp="1587083397540">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="399" y="278" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1587083397540" />
+    <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1586986876273" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1587009495006">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1587009495006" />
   </component>
 </project>
