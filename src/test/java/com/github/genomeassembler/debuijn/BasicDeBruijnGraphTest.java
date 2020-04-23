@@ -1,6 +1,7 @@
 package com.github.genomeassembler.debuijn;
 
 import com.github.genomeassembler.debruijn.BasicDeBruijnGraph;
+import com.github.genomeassembler.debruijn.DeBruijnAnalyzer;
 import com.github.genomeassembler.debruijn.DeBruijnGraph;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,11 +29,15 @@ public class BasicDeBruijnGraphTest {
         assertTrue(graph.getInNeighbors("ACGT").isEmpty());
         Iterator<String> iterator = graph.iterator();
         assertFalse(iterator.hasNext());
+        assertEquals(0, graph.getNumEdges());
+        assertEquals(0, graph.getNumNodes());
     }
 
     @Test
     public void testAdd() {
         graph.addKmer("ACGT");
+        assertEquals(2, graph.getNumNodes());
+        assertEquals(1, graph.getNumEdges());
         assertEquals(-1, graph.getInDegree("ACGT"));
         assertEquals(-1, graph.getOutDegree("ACGT"));
         assertEquals(1, graph.getInDegree("CGT"));
@@ -55,5 +60,28 @@ public class BasicDeBruijnGraphTest {
         assertEquals(2, n);
         Set<String> expectedNodes = new HashSet<>(Arrays.asList("ACG", "CGT"));
         assertEquals(expectedNodes, nodes);
+    }
+
+    @Test
+    public void largeGraph() {
+        graph.addKmer("TAA");
+        graph.addKmer("AAT");
+        graph.addKmer("ATG");
+        graph.addKmer("TGC");
+        graph.addKmer("GCC");
+        graph.addKmer("CCA");
+        graph.addKmer("CAT");
+        graph.addKmer("ATG");
+        graph.addKmer("TGG");
+        graph.addKmer("GGG");
+        graph.addKmer("GGA");
+        graph.addKmer("GAT");
+        graph.addKmer("ATG");
+        graph.addKmer("TGT");
+        graph.addKmer("GTT");
+        assertEquals(11, graph.getNumNodes());
+        assertEquals(15, graph.getNumEdges());
+        assertEquals(3, graph.getOutNeighbors("AT").size());
+        assertEquals(3, graph.getInNeighbors("TG").size());
     }
 }

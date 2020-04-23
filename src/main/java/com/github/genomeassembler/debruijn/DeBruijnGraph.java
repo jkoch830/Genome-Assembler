@@ -61,4 +61,19 @@ public interface DeBruijnGraph extends Iterable<String>{
      * @return The out-degree of the kmer, or -1 if the node is not found
      */
     int getOutDegree(String node);
+
+
+    /**
+     * Retrieves the number of nodes in the graph
+     * @return The number of nodes
+     */
+    int getNumNodes();
+
+
+    /**
+     * Retrieves the number of edges in the graph
+     * @return The number of edges
+     */
+    int getNumEdges();
+
 }
