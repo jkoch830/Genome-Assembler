@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="" />
+    <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BurrowsWheelerTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BurrowsWheelerTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/ReadMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/ReadMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/BurrowsWheelerTransformTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/BurrowsWheelerTransformTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/ReadMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/ReadMapperTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,41 +57,13 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
-  <component name="RunManager" selected="Gradle.BasicDeBruijnGraphTest.testAdd">
-    <configuration name="DeBruijnGraph" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.genomeassembler.debruijn.DeBruijnGraph" />
-      <module name="Genome_Aseembler.main" />
-      <option name="VM_PARAMETERS" value="-Xmx8292m" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.genomeassembler.debruijn.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MemoryTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.genomeassembler.debruijn.MemoryTest" />
-      <module name="Genome_Aseembler.main" />
-      <option name="VM_PARAMETERS" value="-Xmx8192m " />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.genomeassembler.debruijn.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BasicDeBruijnGraphTest.testAdd" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.ReadMapperTest">
+    <configuration name="BurrowsWheelerTransformTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.debuijn.BasicDeBruijnGraphTest.testAdd&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.mapper.BurrowsWheelerTransformTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -99,12 +78,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="BasicDeBruijnGraphTest.testInitialState" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ReadMapperTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.debuijn.BasicDeBruijnGraphTest.testInitialState&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.mapper.ReadMapperTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -118,19 +97,128 @@
       </ExternalSystemSettings>
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
+    </configuration>
+    <configuration name="ReadMapperTest.testImperfectMapReads" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.mapper.ReadMapperTest.testImperfectMapReads&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ReadMapperTest.testMapReads" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.mapper.ReadMapperTest.testMapReads&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="ReadMapperTest.testPerfectMapReads" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.mapper.ReadMapperTest.testPerfectMapReads&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <module name="Genome_Aseembler" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <module name="Genome_Aseembler" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <list>
-      <item itemvalue="Application.DeBruijnGraph" />
-      <item itemvalue="Application.MemoryTest" />
-      <item itemvalue="Gradle.BasicDeBruijnGraphTest.testInitialState" />
-      <item itemvalue="Gradle.BasicDeBruijnGraphTest.testAdd" />
+      <item itemvalue="Gradle.ReadMapperTest.testMapReads" />
+      <item itemvalue="Gradle.BurrowsWheelerTransformTest" />
+      <item itemvalue="Gradle.ReadMapperTest" />
+      <item itemvalue="Gradle.ReadMapperTest.testPerfectMapReads" />
+      <item itemvalue="Gradle.ReadMapperTest.testImperfectMapReads" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.BasicDeBruijnGraphTest.testAdd" />
-        <item itemvalue="Gradle.BasicDeBruijnGraphTest.testInitialState" />
-        <item itemvalue="Application.MemoryTest" />
-        <item itemvalue="Application.DeBruijnGraph" />
+        <item itemvalue="Gradle.ReadMapperTest" />
+        <item itemvalue="Gradle.ReadMapperTest.testImperfectMapReads" />
+        <item itemvalue="Gradle.ReadMapperTest.testPerfectMapReads" />
+        <item itemvalue="Gradle.ReadMapperTest.testMapReads" />
+        <item itemvalue="Gradle.BurrowsWheelerTransformTest" />
       </list>
     </recent_temporary>
   </component>
@@ -176,26 +264,30 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1587083652276" />
+    <state x="100" y="79" width="1240" height="719" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1587668256046">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="100" y="79" width="1240" height="719" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog/0.23.1440.877@0.23.1440.877" timestamp="1587668256046" />
     <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1587140649253">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1587140649253" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587143220845">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587682305322">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587143220845" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587143220844">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587682305322" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587682305320">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587143220844" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587143220843">
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587682305320" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587682305319">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587143220843" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587143220845">
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587682305319" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587682305321">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587143220845" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587682305321" />
     <state width="1398" height="303" key="GridCell.Tab.1.bottom" timestamp="1587083362700">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -216,14 +308,22 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587084359745" />
+    <state width="500" height="445" key="SwitcherDM" timestamp="1587673379682">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="500" height="445" key="SwitcherDM/0.0.1440.900@0.0.1440.900" timestamp="1587673379682" />
     <state x="399" y="278" key="com.intellij.ide.util.TipDialog" timestamp="1587083397540">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="399" y="278" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1587083397540" />
     <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1586986876273" />
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1587009495006">
+    <state x="427" y="73" key="refactoring.ChangeSignatureDialog" timestamp="1587666584028">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1587009495006" />
+    <state x="427" y="73" key="refactoring.ChangeSignatureDialog/0.0.1440.900@0.0.1440.900" timestamp="1587666584028" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1587679090438">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1587679090438" />
   </component>
 </project>

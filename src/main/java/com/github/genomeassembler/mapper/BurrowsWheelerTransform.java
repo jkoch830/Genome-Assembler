@@ -1,17 +1,32 @@
 package com.github.genomeassembler.mapper;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
+import java.util.stream.IntStream;
 
 
+/**
+ * Contains static method for Burrows-Wheeler transformation and suffix
+ * array construction
+ */
 public class BurrowsWheelerTransform {
 
     /**
      * Performs the Burrows Wheeler transform
      * @param genome The string being transformed
+     *               - Requires that '$' is not present
+     * @param suffixArray The buffer in which the suffix array will be placed
+     *                    - Requires that size of suffix array is
+     *                      is len(genome) + 1
      * @return The transformed string
      */
-    public static String transform(String genome) {
+    public static String transform(String genome, int[] suffixArray) {
+        // Initialize suffix array
+        for (int i = 1; i < suffixArray.length; i++) {
+            suffixArray[i - 1] = i;
+        }
+        suffixArray[suffixArray.length - 1] = 0;
+
         StringBuilder transformed = new StringBuilder(genome);
         transformed.append("$");
         int n = transformed.length(), p, r;
@@ -27,9 +42,12 @@ public class BurrowsWheelerTransform {
                 }
             }
             transformed.replace(p, p + 1, String.valueOf(c));
-            assert(transformed.indexOf("$") == -1);
             transformed.deleteCharAt(s);
             transformed.insert(r, "$");
+            swap(suffixArray, s, p);
+            for (int k = s; k < r; k++) {
+                swap(suffixArray, k, k + 1);
+            }
         }
         return transformed.toString();
     }
@@ -97,5 +115,12 @@ public class BurrowsWheelerTransform {
         }
         return -1;
     }
+
+    private static void swap(int[] A, int i, int j) {
+        int temp = A[i];
+        A[i] = A[j];
+        A[j] = temp;
+    }
+
 
 }
