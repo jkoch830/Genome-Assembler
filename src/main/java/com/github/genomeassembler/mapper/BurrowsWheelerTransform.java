@@ -2,6 +2,8 @@ package com.github.genomeassembler.mapper;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 
@@ -13,44 +15,67 @@ public class BurrowsWheelerTransform {
 
     /**
      * Performs the Burrows Wheeler transform
-     * @param genome The string being transformed
+     * @param string The string being transformed
      *               - Requires that '$' is not present
      * @param suffixArray The buffer in which the suffix array will be placed
      *                    - Requires that size of suffix array is
      *                      is len(genome) + 1
      * @return The transformed string
      */
-    public static String transform(String genome, int[] suffixArray) {
+    public static String transform(String string, int[] suffixArray) {
         // Initialize suffix array
         for (int i = 1; i < suffixArray.length; i++) {
             suffixArray[i - 1] = i;
         }
         suffixArray[suffixArray.length - 1] = 0;
-
-        StringBuilder transformed = new StringBuilder(genome);
-        transformed.append("$");
-        int n = transformed.length(), p, r;
-        char c;
+        string += "$";
+        char[] transformed = string.toCharArray();
+        int n = transformed.length, p = transformed.length - 1, r;
+        char c, prevChar = transformed[n - 1];
+        Map<Character, Integer> afterS = new HashMap<>();
+        int percentUpdateIncrement = (n - 1 < 20) ? 1 : (n - 1) / 20;
+        int percentComplete;
         for (int s = n - 2; s >= 0; s--) {
-            c = transformed.charAt(s);
-            p = transformed.indexOf("$");
+            if ((n - 2 - s) % percentUpdateIncrement == 0) {
+                percentComplete = 5 * ((n - 2 - s) / percentUpdateIncrement);
+                System.out.println(percentComplete + "% complete");
+            }
+            c = transformed[s];
+            if (!afterS.containsKey(prevChar)) {
+                afterS.put(prevChar, 0);
+            }
+            afterS.put(prevChar, afterS.get(prevChar) + 1);
+
             r = s;
-            for (int j = s + 1; j < n; j++) {
-                char current = transformed.charAt(j);
-                if (current < c || (j <= p && current == c)) {
+            for (int j = s + 1; j < p; j++) {
+                if (c == transformed[j]) {
                     r++;
                 }
             }
-            transformed.replace(p, p + 1, String.valueOf(c));
-            transformed.deleteCharAt(s);
-            transformed.insert(r, "$");
-            swap(suffixArray, s, p);
+            r += strictlySmaller(c, afterS);
+            swapInts(suffixArray, s, p);
+            swapChars(transformed, s, p);
             for (int k = s; k < r; k++) {
-                swap(suffixArray, k, k + 1);
+                swapInts(suffixArray, k, k + 1);
+                swapChars(transformed, k, k + 1);
+            }
+            p = r;
+            prevChar = c;
+        }
+        return String.valueOf(transformed);
+    }
+
+
+    private static int strictlySmaller(char c, Map<Character, Integer> map) {
+        int count = 0;
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            if (c > entry.getKey()) {
+                count += entry.getValue();
             }
         }
-        return transformed.toString();
+        return count;
     }
+
 
     /**
      * Inverts a Burrows Wheeler transformed string back to its original state
@@ -116,8 +141,14 @@ public class BurrowsWheelerTransform {
         return -1;
     }
 
-    private static void swap(int[] A, int i, int j) {
+    private static void swapInts(int[] A, int i, int j) {
         int temp = A[i];
+        A[i] = A[j];
+        A[j] = temp;
+    }
+
+    private static void swapChars(char[] A, int i, int j) {
+        char temp = A[i];
         A[i] = A[j];
         A[j] = temp;
     }

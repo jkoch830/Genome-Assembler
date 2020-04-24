@@ -2,7 +2,6 @@ package com.github.genomeassembler.mapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +24,8 @@ public class ReadMapper {
     private final static int BWT_BITS_OFFSET = 28;
     private final static int CHAR_MASK = 0x3;
     private final static int MAX_OCCURRENCES = 0xFFFFFFF;
+    private final static String BWT_FINISH_MSG = "Completed Burrows-Wheeler " +
+            "transformation and suffix array construction";
 
     private int endMarkerLocation = -1;  // Marks where
     private int numA;
@@ -50,14 +51,13 @@ public class ReadMapper {
         this.genome = new int[genomeSequence.length() + 1]; // plus a $
         this.suffixArray = new int[genomeSequence.length() + 1]; // plus a $
         String bwt = BurrowsWheelerTransform.transform(genomeSequence, this.suffixArray);
+        System.out.println(BWT_FINISH_MSG);
         char[] tempArray = bwt.toCharArray();
         Arrays.sort(tempArray);
         String sorted = String.copyValueOf(tempArray);
         tempArray = null;
         char bwtChar, sortedChar;
         int packed, numOccurrences;
-        System.out.println("BWT: " + bwt);
-        System.out.println("Sorted: " + sorted);
         for (int i = 0; i < genome.length; i++) {
             bwtChar = bwt.charAt(i);
             sortedChar = sorted.charAt(i);
@@ -115,15 +115,13 @@ public class ReadMapper {
             } else {
                 throw new IllegalArgumentException("Illegal read: " + read);
             }
-        } else {
+        } else { // Can afford at least one mismatch
             rangeStart = 1; // Don't start at '$'
             rangeEnd = genome.length;
         }
 
         List<Integer> validMappings = new ArrayList<>();
         int endIndex;
-        System.out.println("Range start: " + rangeStart);
-        System.out.println("Range end: " + rangeEnd);
         for (int i = rangeStart; i < rangeEnd; i++) {
             if (getSortedChar(genome[i]) != start) { // already one mismatch
                 endIndex = tryMapping(read, mismatches - 1, i);
@@ -163,7 +161,6 @@ public class ReadMapper {
             }
             index = getSortedOccurrenceIndex(bwtChar, numOccurrences);
         }
-        System.out.println("Start index " + start + " passed");
         if (index == 0) { // Read can't map to end of string
             return -1;
         } else {
@@ -177,10 +174,16 @@ public class ReadMapper {
      * This method removes any mapped read from the original list of reads
      * @param reads The list of reads being mapped
      * @param mismatches The number of tolerant mismatches
-     * @return A mapping of a read to a list of starting positions in genome
+     * @return Mappings of a reads to a list of starting positions in genome
      */
     public Map<String, List<Integer>> mapReads(List<String> reads, int mismatches) {
-        return new HashMap<>();
+        Map<String, List<Integer>> mappings = new HashMap<>();
+        for (String read : reads) {
+            if (!mappings.containsKey(read)) {
+                mappings.put(read, mapRead(read, mismatches));
+            }
+        }
+        return mappings;
     }
 
     /**

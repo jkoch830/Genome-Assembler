@@ -19,19 +19,29 @@ import java.util.Set;
 public class FastqParser {
 
 
-
-
-    public static List<String> getReads(String path) {
-        return new ArrayList<>();
-    }
     /**
-     * HIV:
-     * K = 20 => 17130229
-     * K = 30 => 23336643
-     * K = 50 => 31383206
-     *
-     * E.Coli
-     *
+     * Parses a fastq file for all reads
+     * @param path The file path
+     * @return A list of all reads
+     */
+    public static List<String> getReads(String path) throws IOException {
+        List<String> reads = new ArrayList<>();
+        BufferedReader br = Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8);
+        boolean nextHasRead = false;
+        for (String line = br.readLine(); line != null; line = br.readLine()) {
+            if (line.charAt(0) != '@' && nextHasRead) {
+                reads.add(line.replaceAll("\\s", ""));
+                nextHasRead = false;
+            } else if (line.charAt(0) == '@') {
+                nextHasRead = true;
+            }
+        }
+        return reads;
+    }
+
+
+
+    /**
      * @param path The file path to the fasta file
      */
     public static void findKmers(String path) {
@@ -76,22 +86,5 @@ public class FastqParser {
 
 
     }
-
-    public static void main(String[] args) {
-        findKmers("src/main/resources/genitalium1A.fastq");
-        findKmers("src/main/resources/genitalium1B.fastq");
-    }
-
-    /*
-    Total iterations: 2627780
-Total kmers: 2491358
-Free memory available: 8132844032
-0
-1000000
-2000000
-Total iterations: 2627780
-Total kmers: 5388574
-Free memory available: 7541765632
-     */
 
 }

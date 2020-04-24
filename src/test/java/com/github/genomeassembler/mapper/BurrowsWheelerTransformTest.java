@@ -14,6 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class BurrowsWheelerTransformTest {
 
+
     @Test
     public void testTransform() {
         String test1 = "banana";

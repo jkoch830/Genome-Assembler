@@ -1,6 +1,5 @@
 package com.github.genomeassembler.mapper;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -156,6 +155,29 @@ public class ReadMapperTest {
         assertEquals(expected11, mappings11);
 
 
+    }
+
+    @Test
+    public void testMapReads() {
+        ReadMapper mapper1 = new ReadMapper("ACACTAGTCGATG");
+        ReadMapper mapper2 = new ReadMapper("TTTTTTTTTTTT");
+        List<Integer> mappings1 = mapper1.mapRead("CAC", 0);
+        List<Integer> mappings2 = mapper1.mapRead("GATGA", 0);
+        List<Integer> mappings3 = mapper1.mapRead("ACACTAGTCGATG", 0);
+        List<Integer> mappings4 = mapper1.mapRead("ACACTAGTCGATGT", 0);
+        List<Integer> mappings5 = mapper2.mapRead("TTTA", 1);
+
+        List<Integer> expected1 = new ArrayList<>(Collections.singletonList(1));
+        List<Integer> expected3 = new ArrayList<>(Collections.singletonList(0));
+        List<Integer> expected5 = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8));
+
+        Collections.sort(mappings5);
+
+        assertEquals(expected1, mappings1);
+        assertTrue(mappings2.isEmpty());
+        assertEquals(expected3, mappings3);
+        assertTrue(mappings4.isEmpty());
+        assertEquals(expected5, mappings5);
     }
 
     @Test(expected=IllegalArgumentException.class)
