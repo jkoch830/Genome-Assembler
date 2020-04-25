@@ -33,15 +33,11 @@ public class Main {
 
 
         /**
-         * First align exact reads (form contigs)
-         *      Try each reverse complement if it doesn't match
-         * Then try to align reads with up to d mismatches
-         * De novo assembly of rest of reads
-         * Align contigs
+         * Get contigs that map perfectly
+         * For reads that don't map well, form contigs out of reads that have 1 - 3 by mapping each level
+         * Finally, use de bruijn to get resulting contigs out of bad reads
          *
-         *
-         *
-         * Every Read will be an int[], int[0] is length
+         * Map all contigs
          *
          */
 

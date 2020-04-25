@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -31,10 +32,10 @@ public class GenomeAssemblerTest {
                 ));
         GenomeAssembler assembler = new GenomeAssembler(genome, reads);
         assertEquals(reads, assembler.getUnmappedReads());
-        int count = assembler.mapExactReads();
+        int count = assembler.mapReads(0);
         assertEquals(expectedUnmappedReads, assembler.getUnmappedReads());
-        assertEquals(expectedMappedReads, assembler.getExactMappedReads().keySet());
-        assertEquals(Collections.singletonList(0), assembler.getExactMappedReads().get("ACTTG"));
+        assertEquals(expectedMappedReads, assembler.getMappedReads(0).keySet());
+        assertEquals(Collections.singletonList(0), assembler.getMappedReads(0).get("ACTTG"));
         assertEquals(7, count);
     }
 
@@ -54,28 +55,79 @@ public class GenomeAssemblerTest {
         Set<String> expectedMappedReads1 = new HashSet<>(Arrays.asList(
                 "ACGT", "GTACGTA", "AATT", "TTCC", "CCGG"
         ));
-        assertEquals(5, assembler.mapExactReads());
+        assertEquals(5, assembler.mapReads(0));
         assertEquals(expectedUnmappedReads1, assembler.getUnmappedReads());
-        assertEquals(expectedMappedReads1, assembler.getExactMappedReads().keySet());
+        assertEquals(expectedMappedReads1, assembler.getMappedReads(0).keySet());
 
-
-        List<String> expectedUnmappedReads2 = new ArrayList<>(Arrays.asList(
-                 "CGTAAGT"
+        // Map reverse complements
+        List<String> expectedUnmappedReads2 = new ArrayList<>(Collections.singletonList(
+                "CGTAAGT"
         ));
         Set<String> expectedMappedReads2 = new HashSet<>(Arrays.asList(
                 "ACGT", "GTACGTA", "AATT", "TTCC", "CCGG",
-                "CCGGAATTACGTACGT", "TTACGTA", "GGAA"
+                "ACGTACGTAATTCCGG", "TACGTAA"
         ));
-        assertEquals(3, assembler.mapExactReverseComplementaryReads());
-
-
-
-
-
+        assertEquals(3, assembler.mapReverseComplementaryReads(0));
+        assertEquals(expectedUnmappedReads2, assembler.getUnmappedReads());
+        assertEquals(expectedMappedReads2, assembler.getMappedReads(0).keySet());
     }
 
+    @Test
+    public void testExactContigGenerationNoOverlap() {
+        String genome = "ACTAGATCGATCAGTCACTATTACCCTTAA";
+        List<String> reads = new ArrayList<>(Arrays.asList(
+                "CTAGATCGAT", "ATCGATCAGTCAC", "TATTA", "CTTAA"
+        ));
+        GenomeAssembler assembler = new GenomeAssembler(genome, reads);
+        assembler.mapReads(0);
+        assertEquals(2, assembler.formContigs(0, 0));
+        assertTrue(assembler.getMappedReads(0).isEmpty());
+        Map<String, Integer> mappedContigs = assembler.getMappedContigs(0);
+        assertTrue(mappedContigs.containsKey("CTAGATCGATCAGTCACTATTA"));
+    }
 
     @Test
-    public void testContigGeneration() {
+    public void testExactContigGenerationOneOverlap() {
+        String genome = "ACTAGATCGATCAGTCACTATTACCCTTAA";
+        List<String> reads = new ArrayList<>(Arrays.asList(
+                "CTAGATCGAT", "ATCGATCAGTCAC", "TATTA", "CTTAA"
+        ));
+        GenomeAssembler assembler = new GenomeAssembler(genome, reads);
+        assembler.mapReads(0);
+        assertEquals(3, assembler.formContigs(0, 1));
+        Map<String, Integer> mappedContigs = assembler.getMappedContigs(0);
+        assertTrue(mappedContigs.containsKey("CTAGATCGATCAGTCAC"));
+        assertTrue(mappedContigs.containsKey("TATTA"));
+        assertTrue(mappedContigs.containsKey("CTTAA"));
+    }
+
+    @Test
+    public void testExactContigGenerationOverlap() {
+        String genome = "ACTAGATCGATCAGTCACTATTACCCTTAA";
+        List<String> reads = new ArrayList<>(Arrays.asList(
+                "CTAGATCGAT", "GATCAGTCAC", "TATTA", "CTTAA"
+        ));
+        GenomeAssembler assembler = new GenomeAssembler(genome, reads);
+        assembler.mapReads(0);
+        assertEquals(4, assembler.formContigs(0, 4));
+        Map<String, Integer> mappedContigs = assembler.getMappedContigs(0);
+        assertTrue(mappedContigs.containsKey("CTAGATCGAT"));
+        assertTrue(mappedContigs.containsKey("GATCAGTCAC"));
+        assertTrue(mappedContigs.containsKey("TATTA"));
+        assertTrue(mappedContigs.containsKey("CTTAA"));
+    }
+
+    @Test
+    public void testExactContigGenerationFullCoverage() {
+        String genome = "ACTAGATCGATCAGTCACTATTACCCTTAA";
+        List<String> reads = new ArrayList<>(Arrays.asList(
+                "ACTAGATCGA", "CTA", "TCGATCA", "ATCAGTCA", "CACTATTAC",
+                "ATTACCCTTA", "CCTTAA", "ATCAGTCAC"
+        ));
+        GenomeAssembler assembler = new GenomeAssembler(genome, reads);
+        assembler.mapReads(0);
+        assertEquals(1, assembler.formContigs(0, 1));
+        Map<String, Integer> mappedContigs = assembler.getMappedContigs(0);
+        assertTrue(mappedContigs.containsKey(genome));
     }
 }

@@ -36,10 +36,11 @@ public class BurrowsWheelerTransform {
         int percentUpdateIncrement = (n - 1 < 20) ? 1 : (n - 1) / 20;
         int percentComplete;
         for (int s = n - 2; s >= 0; s--) {
-            if ((n - 2 - s) % percentUpdateIncrement == 0) {
+            if (n > 200 && (n - 2 - s) % percentUpdateIncrement == 0) {
                 percentComplete = 5 * ((n - 2 - s) / percentUpdateIncrement);
                 System.out.println(percentComplete + "% complete");
             }
+
             c = transformed[s];
             if (!afterS.containsKey(prevChar)) {
                 afterS.put(prevChar, 0);
