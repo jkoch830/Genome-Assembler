@@ -25,22 +25,13 @@ public class Main {
                     mismatchToleranceLowerBound(0).
                     mismatchToleranceHigherBound(3).
                     mismatchToleranceStep(1).
+                    minContigOutputLength(250).
+                    kmerLength(45).
                     build();
             genomeAssembler.setAssemblerParameters(parameters);
             genomeAssembler.assemble();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        /**
-         * Get contigs that map perfectly
-         * For reads that don't map well, form contigs out of reads that have 1 - 3 by mapping each level
-         * Finally, use de bruijn to get resulting contigs out of bad reads
-         *
-         * Map all contigs// map new contigs on top of mapped contigs, calculate length between mapped contigs
-         *
-         */
-
     }
 }

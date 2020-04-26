@@ -48,6 +48,7 @@ public class GenomeAssembler {
     private final static int NUM_THREADS = 4;
 
     private final ReadMapper referenceGenomeReadMapper;
+    private final int refGenomeLength;
     private final DeBruijnGraph deBruijnGraph;
 
     private final List<String> unmappedReads;
@@ -56,8 +57,8 @@ public class GenomeAssembler {
     // Each correspond to a certain mismatch-tolerated mappedReads mapping
     private final List<Map<String, Integer>> mappedContigSets;
 
-    // Final combined contig
-    private final Map<String, Integer> superContigs;
+    // Super contigs formed by mapped contig sets, then resolved by graph contigs
+    private final Map<Integer, String> superContigs;
 
     // Contigs formed by de Bruijn graph traversal
     private final List<String> graphContigs;
@@ -71,6 +72,7 @@ public class GenomeAssembler {
 
     public GenomeAssembler(String referenceGenomeSequence, List<String> reads) {
         // Process genome
+        this.refGenomeLength = referenceGenomeSequence.length();
         System.out.println("Length of genome: " + referenceGenomeSequence.length());
         System.out.println("Total number of reads: " + reads.size());
         System.out.println(PROCESS_BEGIN_MSG);
@@ -110,14 +112,20 @@ public class GenomeAssembler {
      *                  to reference genome with at most x mismatches
      *              - Form contigs from these mapped reads
      *      - Take the remaining reads and obtain remaining contigs by
-     *          constructing a de Bruijn graph. Form kmers based on the
-     *          smallest read
+     *          constructing a de Bruijn graph. Forms kmers based on configurable
+     *          k
      *      - Denote each contig set C-x, where each contig in C-x was formed
      *          by reads that mapped to the reference genome with at most x
-     *          mismatches. To form the supercontig between multiple
+     *          mismatches. To form the super contig between multiple
      *          overlapping contigs, take the consensus base at the overlapping
-     *          index.
-     *      - Output N50, largest contig, supercontig(s), and coverage
+     *          index. To break ties, prioritize the base in C-y, where y is
+     *          minimal.
+     *      - Resolve gaps between super contigs by mapping graph contigs
+     *          onto super contigs. Remove the graph contigs from the set
+     *      - From remaining graph contigs, discard contigs that fall below
+     *          configurable threshold size
+     *      - Output N50, largest contig, super contig(s), graph contigs,
+     *          super contig coverage, total contig coverage, and read coverage
      */
     public void assemble() {
         long startTime = System.currentTimeMillis();
@@ -151,24 +159,29 @@ public class GenomeAssembler {
         System.out.println(RESOLVING_MSG);
         this.resolveContigs();
 
+        // Use super contigs to write out assembled genome sequence with gaps
+        String assembledGenome = this.formSequence();
+
         // Write assembly results in file
         System.out.println(FINISHED_MSG);
         long endTime = System.currentTimeMillis();
-        this.writeResults(endTime - startTime);
+        this.writeResults(assembledGenome, endTime - startTime);
 
     }
 
+    /* *************************************************** */
+    /* ************** BEGIN WRITING METHODS ************** */
+    /* *************************************************** */
     /**
      * Outputs N50, largest contig length, coverage, and contigs
      */
-    private void writeResults(long totalTime) {
+    private void writeResults(String assembledGenome, long totalTime) {
         int N50 = this.calculateN50();
-        int longestContigLength = 0;
-        for (String superContig : this.superContigs.keySet()) {
-            if (superContig.length() > longestContigLength) {
-                longestContigLength = superContig.length();
-            }
-        }
+        int longestContigLength = this.getLongestContigSize();
+        double allContigCoverage = this.calculateAllContigCoverage();
+        double superContigCoverage = this.calculateSuperContigCoverage();
+        int numGaps = countChar(assembledGenome, 'N');
+        List<Integer> sortedIndices = getSortedIndices(this.superContigs);
         try {
             String path = "src/main/resources/results.txt";
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
@@ -176,14 +189,16 @@ public class GenomeAssembler {
             writer.write("Total time: " + (totalTime / 60000) + " minutes\n");
             writer.write("N50: " + N50 + "\n");
             writer.write("Longest Contig Length: " + longestContigLength + "bp\n");
-            writer.write("Coverage: " + this.coverage + "\n");
+            writer.write("Coverage of reads: " + this.coverage + "x\n");
+            writer.write("Coverage of super contigs: " + superContigCoverage + "%\n");
+            writer.write("Coverage of contigs: " + allContigCoverage + "%\n");
+            writer.write("Number of unknown bases: " + numGaps + "\n");
             writer.write("======================Super Contigs======================\n");
-            for (Map.Entry<String, Integer> entry : this.superContigs.entrySet()) {
-                String contig = entry.getKey();
+            for (int index : sortedIndices) {
+                String contig = this.superContigs.get(index);
                 int size = contig.length();
-                int index = entry.getValue();
-                writer.write("Super Contig length: " + size + "\n");
                 writer.write("Super Contig index: " + index + "\n");
+                writer.write("Super Contig length: " + size + "\n");
                 writer.write(contig + "\n");
             }
             writer.write("======================Graph Contigs======================\n");
@@ -192,30 +207,83 @@ public class GenomeAssembler {
                 writer.write("Contig length: " + size + "\n");
                 writer.write(contig + "\n");
             }
+            writer.write("======================Assembled Genome======================\n");
+            writer.write(assembledGenome + "\n");
             writer.close();
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error writing to file");
             System.out.println("N50: " + N50);
             System.out.println("Longest contig: " + longestContigLength);
             System.out.println("Coverage: " + coverage);
+            System.out.println("Super Contig Coverage: " + superContigCoverage);
+            System.out.println("All Contig Coverage: " + allContigCoverage);
         }
-
     }
 
+    /**
+     * Uses the super contigs to form an assembled sequence. Unknown regions
+     * are written by N's
+     * @return The assembled sequence
+     */
+    private String formSequence() {
+        StringBuilder assembledSequence = new StringBuilder();
+        List<Integer> sortedIndices = getSortedIndices(this.superContigs);
+        int index = 0;
+        while (index < this.refGenomeLength) {
+            if (!sortedIndices.contains(index)) { // Gap
+                assembledSequence.append('N');
+                index++;
+            } else {
+                String superContig = this.superContigs.get(index);
+                assembledSequence.append(superContig);
+                index += superContig.length();
+            }
+        }
+        return assembledSequence.toString();
+    }
+
+    private int getLongestContigSize() {
+        int longestContigLength = 0;
+        for (String superContig : this.superContigs.values()) {
+            if (superContig.length() > longestContigLength) {
+                longestContigLength = superContig.length();
+            }
+        }
+        return longestContigLength;
+    }
+
+    private double calculateSuperContigCoverage() {
+        int totalLength = 0;
+        for (String contig : this.superContigs.values()) {
+            totalLength += contig.length();
+        }
+        return totalLength / ((double)this.refGenomeLength);
+    }
+
+    private double calculateAllContigCoverage() {
+        int totalLength = 0;
+        for (String superContig : this.superContigs.values()) {
+            totalLength += superContig.length();
+        }
+        for (String contig : this.graphContigs) {
+            totalLength += contig.length();
+        }
+        return totalLength / ((double)this.refGenomeLength);
+    }
 
     private int calculateN50() {
         List<Integer> sizes = new ArrayList<>();
-        for (String superContig : this.superContigs.keySet()) {
+        for (String superContig : this.superContigs.values()) {
             sizes.add(superContig.length());
         }
         Collections.sort(sizes);
         Collections.reverse(sizes);
-        int genomeLength = this.referenceGenomeReadMapper.getGenomeSequence().length();
         int total = 0;
         for (int size : sizes) {
             total += size;
-            if (total >= (genomeLength / 2)) {
+            if (total >= (this.refGenomeLength/ 2)) {
                 System.out.println("Good N50 calculation: " + size);
                 return size;
             }
@@ -225,10 +293,20 @@ public class GenomeAssembler {
         return total;
     }
 
+    /* ************************************************* */
+    /* ************** END WRITING METHODS ************** */
+    /* ************************************************* */
+
+
+
+    /* *************************************************** */
+    /* ************** BEGIN ASSEMBLER STEPS ************** */
+    /* *************************************************** */
     /**
      * Resolves and combines contigs from the mapped contig sets.
-     * It forms one consensus super contig by taking the consensus base from each
+     * It forms consensus super contigs by taking the consensus base from each
      * mapped contig.
+     * This places the super contigs and clears the mapped contig sets
      */
     private void resolveContigs() {
         // Flips all contig sets
@@ -241,15 +319,14 @@ public class GenomeAssembler {
             flippedContigSets.add(flippedContigSet);
             contigSet.clear();
         }
-        // Begin forming consensus contig
-        int refGenomeLength = this.referenceGenomeReadMapper.getGenomeSequence().length();
+        // Begin forming consensus contig between mapped contigs
         StringBuilder superContig = new StringBuilder();
-        for (int i = 0; i < refGenomeLength; i++) {
+        for (int i = 0; i < this.refGenomeLength; i++) {
             char consensusBase = getConsensusBase(i, flippedContigSets);
             if (consensusBase == '0') { // No contig covers i
                 if (superContig.length() != 0) { // don't save empty string
                     int startingIndex =  i - superContig.length();
-                    this.superContigs.put(superContig.toString(), startingIndex);
+                    this.superContigs.put(startingIndex, superContig.toString());
                     superContig = new StringBuilder();
                 }
             } else {
@@ -259,8 +336,8 @@ public class GenomeAssembler {
         // Checks for last super contig
         int finalSuperContigLength = superContig.length();
         if (finalSuperContigLength != 0) {
-            int startingIndex = refGenomeLength - finalSuperContigLength;
-            this.superContigs.put(superContig.toString(), startingIndex);
+            int startingIndex = this.refGenomeLength - finalSuperContigLength;
+            this.superContigs.put(startingIndex, superContig.toString());
         }
 
         this.mappedContigSets.clear(); // No longer need contigs
@@ -285,6 +362,7 @@ public class GenomeAssembler {
     }
 
 
+
     /**
      * Creates a de Bruijn graph from the remaining unmapped reads
      */
@@ -296,16 +374,6 @@ public class GenomeAssembler {
             }
         }
         this.unmappedReads.clear();
-    }
-
-
-    /**
-     * Sets the assembler's settings
-     * @param parameters An AssemblerParameters object containing assembly
-     *                   settings
-     */
-    public void setAssemblerParameters(AssemblerParameters parameters) {
-        this.parameters = parameters;
     }
 
 
@@ -419,6 +487,19 @@ public class GenomeAssembler {
         return contigs.size();
     }
 
+    /* ************************************************* */
+    /* ************** END ASSEMBLER STEPS ************** */
+    /* ************************************************* */
+
+    /**
+     * Sets the assembler's settings
+     * @param parameters An AssemblerParameters object containing assembly
+     *                   settings
+     */
+    public void setAssemblerParameters(AssemblerParameters parameters) {
+        this.parameters = parameters;
+    }
+
 
     /**
      * Retrieves the assembler's unmapped reads
@@ -447,6 +528,7 @@ public class GenomeAssembler {
     public List<Map<String, Integer>> getMappedContigSets() {
         return this.mappedContigSets;
     }
+
 
 
     /** Static helper methods and classes */
@@ -482,6 +564,7 @@ public class GenomeAssembler {
         return flippedMap;
     }
 
+
     private static Map<Integer, String> removeSmallStrings(Map<Integer,
             List<String>> mappedIndices) {
         Map<Integer, String> simplified = new HashMap<>();
@@ -499,8 +582,14 @@ public class GenomeAssembler {
         return simplified;
     }
 
+    private static List<Integer> getSortedIndices(Map<Integer, String> map) {
+        List<Integer> indices = new ArrayList<>(map.keySet());
+        Collections.sort(indices);
+        return indices;
+    }
 
-    private char getConsensusBase(int i, List<Map<Integer, String>> mapList) {
+
+    private static char getConsensusBase(int i, List<Map<Integer, String>> mapList) {
         List<Character> bases = new ArrayList<>();
         for (Map<Integer, String> map : mapList) {
             for (Map.Entry<Integer, String> entry : map.entrySet()) {
@@ -531,6 +620,15 @@ public class GenomeAssembler {
         return '0'; // Should never reach here
     }
 
+    private static int countChar(String s, char target) {
+        int total = 0;
+        for (char c : s.toCharArray()) {
+            if (c == target) {
+                total++;
+            }
+        }
+        return total;
+    }
 
     private static class ContigBuilder {
         private StringBuilder stringBuilder;
