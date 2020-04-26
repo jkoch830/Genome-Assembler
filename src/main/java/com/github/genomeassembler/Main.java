@@ -9,7 +9,7 @@ import java.util.List;
 public class Main {
     private final static String READS_PATH_ONE = "../832a.fastq";
     private final static String READS_PATH_TWO = "../832b.fastq";
-    private final static String GENOME_PATH = "src/main/resources/M30.gff";
+    private final static String GENOME_PATH = "src/main/resources/M2282.gff";
 
     public static void main(String[] args) {
         try {

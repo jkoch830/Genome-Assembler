@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/AssemblerParameters.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BWReadMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BruteForceReadMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/james.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/james.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/BasicDeBruijnGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/BasicDeBruijnGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/ReadMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/ReadMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastqParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastqParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BWReadMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BWReadMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/GenomeAssemblerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/GenomeAssemblerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/BurrowsWheelerTransformTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/BurrowsWheelerTransformTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/ReadMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/ReadMapperTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,12 +97,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="GenomeAssemblerTest.testExactContigGenerationFullCoverage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="GenomeAssemblerTest.temp" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testExactContigGenerationFullCoverage&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.temp&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -127,12 +117,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="GenomeAssemblerTest.testExactContigGenerationOverlap" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="GenomeAssemblerTest.testExactContigGenerationFullCoverage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testExactContigGenerationOverlap&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testExactContigGenerationFullCoverage&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -168,19 +158,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationOverlap" />
       <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationFullCoverage" />
       <item itemvalue="Gradle.GenomeAssemblerTest.testTwoErrorContigGenerationOverlap" />
       <item itemvalue="Gradle.GenomeAssemblerTest" />
       <item itemvalue="Application.Main" />
+      <item itemvalue="Gradle.GenomeAssemblerTest.temp" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.GenomeAssemblerTest.temp" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.GenomeAssemblerTest" />
         <item itemvalue="Gradle.GenomeAssemblerTest.testTwoErrorContigGenerationOverlap" />
         <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationFullCoverage" />
-        <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationOverlap" />
       </list>
     </recent_temporary>
   </component>
@@ -211,7 +201,7 @@
       <workItem from="1587001136871" duration="1618000" />
       <workItem from="1587003245458" duration="6877000" />
       <workItem from="1587083381027" duration="8028000" />
-      <workItem from="1587701160007" duration="66199000" />
+      <workItem from="1587701160007" duration="80658000" />
     </task>
     <servers />
   </component>
@@ -243,25 +233,25 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="335" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1587812405849" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587867572750">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587922141672">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587867572750" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587922141672" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1587701136325" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587867572748">
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587922141671">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587867572748" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587922141671" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1587701136323" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587867572747">
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587922141670">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587867572747" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587922141670" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1587701136322" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587867572749">
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587922141671">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587867572749" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587922141671" />
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1587701136324" />
     <state width="1398" height="303" key="GridCell.Tab.1.bottom" timestamp="1587752483286">
       <screen x="0" y="0" width="1440" height="900" />

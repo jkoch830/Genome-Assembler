@@ -58,9 +58,9 @@ public class BWReadMapper implements ReadMapper {
         this.numT = 0;
         this.numG = 0;
         this.genome = new int[genomeSequence.length() + 1]; // plus a $
-        //this.suffixArray = new int[genomeSequence.length() + 1]; // plus a $
-        //String bwt = BurrowsWheelerTransform.transform(genomeSequence, this.suffixArray);
-        String bwt = quickSetup();
+        this.suffixArray = new int[genomeSequence.length() + 1]; // plus a $
+        String bwt = BurrowsWheelerTransform.transform(genomeSequence, this.suffixArray);
+        //String bwt = quickSetup();
         System.out.println(BWT_FINISH_MSG);
         char[] tempArray = bwt.toCharArray();
         Arrays.sort(tempArray);
