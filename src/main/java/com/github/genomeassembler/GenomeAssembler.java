@@ -1,66 +1,150 @@
 package com.github.genomeassembler;
 
+import com.github.genomeassembler.debruijn.BasicDeBruijnGraph;
+import com.github.genomeassembler.debruijn.DeBruijnAnalyzer;
+import com.github.genomeassembler.debruijn.DeBruijnGraph;
+import com.github.genomeassembler.mapper.BWReadMapper;
 import com.github.genomeassembler.mapper.ReadMapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class GenomeAssembler {
-    private final static String PROCESS_BEGIN_MSG = "Beginning processing of reference genome...";
-    private final static String PROCESS_FINISH_MSG = "Finished processing of reference genome";
-    private final static String MISMATCH_ERROR_MSG = "Number of mismatches must be between 0 and 5";
+
+    // Status messages
+    private final static String PROCESS_BEGIN_MSG = "Beginning processing of " +
+            "reference genome...";
+    private final static String PROCESS_FINISH_MSG = "Finished processing of " +
+            "reference genome";
+    private final static String MAPPING_MSG = "Mapping reads to reference " +
+            "genome with mismatch tolerance: ";
+    private final static String MAPPED_MSG = "Number of reads mapped to " +
+            "reference genome: ";
+    private final static String FORMING_CONTIGS_MSG = "Forming contigs...";
+    private final static String CONTIGS_FORMED_MSG = "Number of contigs formed: ";
+    private final static String REMAINING_READS_MSG = "Number of remaining " +
+            "unmapped reads: ";
+    private final static String CONSTRUCTING_GRAPH_MSG = "Constructing de " +
+            "Bruijn graph from remaining unmapped reads and assembling contigs...";
+    private final static String RESOLVING_MSG = "Resolving and combining contigs";
+
     private final static int REQUIRED_OVERLAP = 0;
+    private final static int NUM_THREADS = 4;
 
     private final ReadMapper referenceGenomeReadMapper;
+    private final DeBruijnGraph deBruijnGraph;
 
     private final List<String> unmappedReads;
-    private final Map<String, List<Integer>> exactMappedReads;
-    private final Map<String, List<Integer>> oneErrorMappedReads;
-    private final Map<String, List<Integer>> twoErrorMappedReads;
-    private final Map<String, List<Integer>> threeErrorMappedReads;
-    private final Map<String, List<Integer>> fourErrorMappedReads;
-    private final Map<String, List<Integer>> fiveErrorMappedReads;
+    private final Map<String, List<Integer>> mappedReads;
 
     // Each correspond to a certain mismatch-tolerated mappedReads mapping
-    private final Map<String, Integer> exactContigs;
-    private final Map<String, Integer> oneErrorContigs;
-    private final Map<String, Integer> twoErrorContigs;
-    private final Map<String, Integer> threeErrorContigs;
-    private final Map<String, Integer> fourErrorContigs;
-    private final Map<String, Integer> fiveErrorContigs;
+    private final List<Map<String, Integer>> mappedContigSets;
+
+    // Settings
+    private AssemblerParameters parameters;
 
 
     public GenomeAssembler(String referenceGenomeSequence, List<String> reads) {
         // Process genome
         System.out.println("Length of genome: " + referenceGenomeSequence.length());
+        System.out.println("Total number of reads: " + reads.size());
         System.out.println(PROCESS_BEGIN_MSG);
-        this.referenceGenomeReadMapper = new ReadMapper(referenceGenomeSequence);
+        this.referenceGenomeReadMapper = new BWReadMapper(referenceGenomeSequence);
         System.out.println(PROCESS_FINISH_MSG);
 
         // Initialize read data structures
         this.unmappedReads = reads;
-        this.exactMappedReads = new HashMap<>();
-        this.oneErrorMappedReads = new HashMap<>();
-        this.twoErrorMappedReads = new HashMap<>();
-        this.threeErrorMappedReads = new HashMap<>();
-        this.fourErrorMappedReads = new HashMap<>();
-        this.fiveErrorMappedReads = new HashMap<>();
+        this.mappedReads = new ConcurrentHashMap<>();
 
         // Initialize contig data structures
-        this.exactContigs = new HashMap<>();
-        this.oneErrorContigs = new HashMap<>();
-        this.twoErrorContigs = new HashMap<>();
-        this.threeErrorContigs = new HashMap<>();
-        this.fourErrorContigs = new HashMap<>();
-        this.fiveErrorContigs = new HashMap<>();
+        this.mappedContigSets = new ArrayList<>();
 
+        // Initialize de Bruijn graph
+        this.deBruijnGraph = new BasicDeBruijnGraph();
+
+        // Initialize default diagnostic information settings
+        this.parameters = new AssemblerParameters.Builder().build();
+
+    }
+
+    /**
+     * Main method to assemble the genome after construction.
+     * Main process:
+     *      - For all x between a given lower bound and higher bound:
+     *              - Map all remaining reads that map to reference genome with
+     *                  at most x mismatches
+     *              - Map all remaining reverse complementary reads that map to
+     *                  to reference genome with at most x mismatches
+     *              - Form contigs from these mapped reads
+     *      - Take the remaining reads and obtain remaining contigs by
+     *          constructing a de Bruijn graph. Form kmers based on the
+     *          smallest read
+     *      - Denote each contig set C-x, where each contig in C-x was formed
+     *          by reads that mapped to the reference genome with at most x
+     *          mismatches. To form the supercontig between multiple
+     *          overlapping contigs, take the consensus base at the overlapping
+     *          index.
+     *      - Output N50, largest contig, supercontig(s), coverage, and number
+     *          of contigs less than a set length
+     */
+    public void assemble() {
+        // Use reference genome to form contigs
+        int mismatchLowerBound = this.parameters.getMismatchToleranceLowerBound();
+        int mismatchUpperBound = this.parameters.getMismatchToleranceHigherBound();
+        int toleranceStep = this.parameters.getMismatchToleranceStep();
+        int mapped, contigs;
+        for (int numMismatches = mismatchLowerBound;
+             numMismatches < mismatchUpperBound; numMismatches += toleranceStep) {
+            System.out.println(MAPPING_MSG + numMismatches);
+            mapped = this.mapReads(numMismatches); // Tries mapping reads
+            System.out.println(MAPPED_MSG + mapped);
+            System.out.println(FORMING_CONTIGS_MSG);
+            contigs = this.formContigs(); // Forms contigs from reads
+            System.out.println(CONTIGS_FORMED_MSG + contigs);
+        }
+        System.out.println(REMAINING_READS_MSG + this.unmappedReads.size());
+        System.out.println(CONSTRUCTING_GRAPH_MSG);
+
+        // Form contigs out of remaining reads using a de Bruijn graph
+        System.out.println();
+        constructDeBruijnGraph();
+        List<String> graphContigs = DeBruijnAnalyzer.contigGeneration(this.deBruijnGraph);
+        System.out.println(CONTIGS_FORMED_MSG + graphContigs.size());
+
+        // Combine/resolve contigs
+        System.out.println(RESOLVING_MSG);
+
+
+    }
+
+    /**
+     * Creates a de Bruijn graph from the remaining unmapped reads
+     */
+    private void constructDeBruijnGraph() {
+        int k = this.parameters.getKmerLength();
+        for (String read : this.unmappedReads) {
+            for (int i = 0; i < read.length() - k + 1; i++) {
+                this.deBruijnGraph.addKmer(read.substring(i, i + k));
+            }
+        }
+        this.unmappedReads.clear();
+    }
+
+
+    /**
+     * Sets the assembler's settings
+     * @param parameters An AssemblerParameters object containing assembly
+     *                   settings
+     */
+    public void setAssemblerParameters(AssemblerParameters parameters) {
+        this.parameters = parameters;
     }
 
 
@@ -73,75 +157,81 @@ public class GenomeAssembler {
      *         to the reference genome
      */
     public int mapReads(int mismatches) {
-        int count = 0;
-        for (int i = this.unmappedReads.size() - 1; i >= 0; i--) {
-            String read = this.unmappedReads.get(i);
-            List<Integer> startingPositions =
-                    this.referenceGenomeReadMapper.mapRead(read, mismatches);
-            if (!startingPositions.isEmpty()) {
-                this.unmappedReads.remove(i);
-                exactMappedReads.put(read, startingPositions);
-                count++;
-            }
-        }
-        return count;
-    }
+        List<Integer> mappedReadsIndices = Collections.synchronizedList(new ArrayList<>());
+        int n = this.unmappedReads.size();
+        int percentUpdateIncrement = (n < 20) ? 1 : n / 20;
 
+        System.out.println("Mapping " + n + " reads to reference genome...");
 
-    /**
-     * Attempts to map remaining unmapped reads' reverse complements to the
-     * reference genome with no tolerant mismatches.
-     * If a read's reverse complement is mapped, the read is removed from
-     * the unmapped reads, and its reverse complement is added to mapped
-     * @param mismatches The number of tolerated mismatches when mapping
-     * @return The number of reverse complementary reads (including duplicates)
-     *         that were mapped to the reference genome
-     */
-    public int mapReverseComplementaryReads(int mismatches) {
-        int count = 0;
-        for (int i = this.unmappedReads.size() - 1; i >= 0; i--) {
-            String reverseComplement = reverseComplement(this.unmappedReads.get(i));
-            List<Integer> startingPositions =
-                    this.referenceGenomeReadMapper.mapRead(reverseComplement, mismatches);
-            if (!startingPositions.isEmpty()) {
-                this.unmappedReads.remove(i);
-                exactMappedReads.put(reverseComplement, startingPositions);
-                count++;
-            }
+        AtomicInteger countRead = new AtomicInteger();
+        Thread[] threads = new Thread[NUM_THREADS];
+        for (int i = 0; i < threads.length; i++) {
+            int startIndex = i * (n / threads.length);
+            int endIndex;
+            if (i == threads.length - 1) { endIndex = n; }
+            else { endIndex = startIndex + (n / threads.length); }
+            threads[i] = new Thread(() -> {
+                for (int j = startIndex; j < endIndex; j++) {
+                    countRead.getAndIncrement();
+                    if (countRead.get() % percentUpdateIncrement == 0) {
+                        int percentComplete = 5 * (countRead.get() / percentUpdateIncrement);
+                        System.out.println(percentComplete + "% reads mapped");
+                    }
+                    String read = this.unmappedReads.get(j);
+                    List<Integer> startingPositions =
+                            this.referenceGenomeReadMapper.mapRead(read, mismatches);
+                    if (startingPositions.isEmpty()) { // Try mapping complement
+                        read = reverseComplement(read);
+                        startingPositions = this.referenceGenomeReadMapper.mapRead(
+                                read, mismatches);
+
+                    }
+                    // Add if and only if it was mapped to at least one position
+                    if (!startingPositions.isEmpty()) {
+                        this.mappedReads.put(read, startingPositions);
+                        mappedReadsIndices.add(j);
+                    }
+                }
+            });
         }
-        return count;
+        for (Thread thread : threads) { thread.start(); }
+        for (Thread thread : threads) {
+            try { thread.join(); }
+            catch (InterruptedException e) { e.printStackTrace(); }
+        }
+        Collections.sort(mappedReadsIndices);
+        Collections.reverse(mappedReadsIndices);
+        for (int index : mappedReadsIndices) { // Safely removes all reads that were mapped
+            this.unmappedReads.remove(index);
+        }
+        return mappedReadsIndices.size();
     }
 
 
     /**
      * Forms contigs from mapped reads that form a contiguous sequence.
      * The mapping containing the reads will be cleared because the resulting
-     * contig map will contain reads that don't form a contig
-     * @param mismatches The number of tolerated mismatches for the mapped reads
-     *                   being converted to contigs.
-     *                   Requires 0 <= mismatches <= 5
-     * @param requiredOverlap The required amount of overlapping base pairs
-     *                        two reads require in order to be combined into a
-     *                        contig
+     * contig map will contain reads that don't form a contig. The new contig
+     * mapping will be added to the assembler's mapped contig set list
      * @return The number of contigs formed
      */
-    public int formContigs(int mismatches, int requiredOverlap) {
-        Map<String, List<Integer>> mappedReads = getMappedReads(mismatches);
-        if (mappedReads.isEmpty()) {
+    public int formContigs() {
+        if (this.mappedReads.isEmpty()) {
             return 0;
         }
-        Map<Integer, String> mappedIndices = removeSmallStrings(flipMapping(mappedReads));
-        mappedReads.clear(); // No need to store reads any longer
+        Map<Integer, String> mappedIndices = removeSmallStrings(flipMapping(this.mappedReads));
+        this.mappedReads.clear(); // No need to store reads any longer
 
-        Map<String, Integer> contigs = getMappedContigs(mismatches);
+        Map<String, Integer> contigs = new HashMap<>(); // New contig set
 
+        // Traverse mapped contig positions in order
         Set<Integer> tempKeySet = mappedIndices.keySet();
         int start = Collections.min(tempKeySet);
         int end = Collections.max(tempKeySet);
         tempKeySet = null;
 
         String read, otherRead;
-        int readLength;
+        int requiredOverlap = this.parameters.getRequiredContigOverlap(), readLength;
         ContigBuilder newContig;
         for (int i = start; i <= end; i++) { // Loop through mapped indices
             if (mappedIndices.containsKey(i)) { // Found read at index
@@ -165,6 +255,7 @@ public class GenomeAssembler {
                 contigs.put(newContig.build(), i);
             }
         }
+        this.mappedContigSets.add(contigs); // Add new contig set
         return contigs.size();
     }
 
@@ -180,56 +271,25 @@ public class GenomeAssembler {
 
     /**
      * Retrieves the assembler's already mapped reads
-     * @param mismatches The number of mismatches between the mapped reads and
-     *                   the reference genome
      * @return A map containing each mapped read and their respective starting
      *      positions in the reference genome
      */
-    public Map<String, List<Integer>> getMappedReads(int mismatches) {
-        switch(mismatches) {
-            case 0:
-                return this.exactMappedReads;
-            case 1:
-                return this.oneErrorMappedReads;
-            case 2:
-                return this.twoErrorMappedReads;
-            case 3:
-                return this.threeErrorMappedReads;
-            case 4:
-                return this.fourErrorMappedReads;
-            case 5:
-                return this.fiveErrorMappedReads;
-            default:
-                throw new IllegalArgumentException(MISMATCH_ERROR_MSG);
-        }
+    public Map<String, List<Integer>> getMappedReads() {
+        return this.mappedReads;
     }
 
+
     /**
-     * Retrieve's the assembler's already formed contigs
-     * @param mismatches The number of mismatches between the reads that formed
-     *                   these contigs and the reference genome
+     * Retrieve's the assembler's already formed contig sets
      * @return A mapping between the contigs and their starting position in the
      *         genome
      */
-    public Map<String, Integer> getMappedContigs(int mismatches) {
-        switch(mismatches) {
-            case 0:
-                return this.exactContigs;
-            case 1:
-                return this.oneErrorContigs;
-            case 2:
-                return this.twoErrorContigs;
-            case 3:
-                return this.threeErrorContigs;
-            case 4:
-                return this.fourErrorContigs;
-            case 5:
-                return this.fiveErrorContigs;
-            default:
-                throw new IllegalArgumentException(MISMATCH_ERROR_MSG);
-        }
+    public List<Map<String, Integer>> getMappedContigSets() {
+        return this.mappedContigSets;
     }
 
+
+    /** Static helper methods and classes */
     private static String reverseComplement(String s) {
         StringBuilder complement = new StringBuilder();
         for (char c : s.toCharArray()) {

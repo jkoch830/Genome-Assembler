@@ -15,24 +15,24 @@ public class ReadMapperTest {
 
     @Test
     public void testPacking() {
-        int packed1 = ReadMapper.packInformation('A', 'C', 5);
-        int packed2 = ReadMapper.packInformation('T', 'G', 13232132);
-        int packed3 = ReadMapper.packInformation('A', 'A', 0);
-        assertEquals('A', ReadMapper.getSortedChar(packed1));
-        assertEquals('T', ReadMapper.getSortedChar(packed2));
-        assertEquals('A', ReadMapper.getSortedChar(packed3));
-        assertEquals('C', ReadMapper.getBwtChar(packed1));
-        assertEquals('G', ReadMapper.getBwtChar(packed2));
-        assertEquals('A', ReadMapper.getBwtChar(packed3));
-        assertEquals(5, ReadMapper.getNumOccurrences(packed1));
-        assertEquals(13232132, ReadMapper.getNumOccurrences(packed2));
-        assertEquals(0, ReadMapper.getNumOccurrences(packed3));
+        int packed1 = BWReadMapper.packInformation('A', 'C', 5);
+        int packed2 = BWReadMapper.packInformation('T', 'G', 13232132);
+        int packed3 = BWReadMapper.packInformation('A', 'A', 0);
+        assertEquals('A', BWReadMapper.getSortedChar(packed1));
+        assertEquals('T', BWReadMapper.getSortedChar(packed2));
+        assertEquals('A', BWReadMapper.getSortedChar(packed3));
+        assertEquals('C', BWReadMapper.getBwtChar(packed1));
+        assertEquals('G', BWReadMapper.getBwtChar(packed2));
+        assertEquals('A', BWReadMapper.getBwtChar(packed3));
+        assertEquals(5, BWReadMapper.getNumOccurrences(packed1));
+        assertEquals(13232132, BWReadMapper.getNumOccurrences(packed2));
+        assertEquals(0, BWReadMapper.getNumOccurrences(packed3));
     }
 
     @Test
     public void testCounts() {
-        ReadMapper mapper1 = new ReadMapper("ACATAGCTAGCTAGCA");
-        ReadMapper mapper2 = new ReadMapper("AAACCC$$$");
+        BWReadMapper mapper1 = new BWReadMapper("ACATAGCTAGCTAGCA");
+        BWReadMapper mapper2 = new BWReadMapper("AAACCC$$$");
         assertArrayEquals(new int[] {6, 4, 3, 3}, mapper1.getBaseCounts());
         assertArrayEquals(new int[] {3, 3, 0, 0}, mapper2.getBaseCounts());
     }
@@ -43,10 +43,10 @@ public class ReadMapperTest {
         String genomeSequence2 = "AAAAAAACCCCCCTTTTTTGGGGGGCATCGTAGCTAGCTGCTA";
         String genomeSequence3 = "TTTTTTTTTTTTTTTT";
         String genomeSequence4 = "ACTGGTCAATCGGCACACGTAGCTAGCTATGGGGGGGGGGGG";
-        ReadMapper mapper1 = new ReadMapper(genomeSequence1);
-        ReadMapper mapper2 = new ReadMapper(genomeSequence2);
-        ReadMapper mapper3 = new ReadMapper(genomeSequence3);
-        ReadMapper mapper4 = new ReadMapper(genomeSequence4);
+        ReadMapper mapper1 = new BWReadMapper(genomeSequence1);
+        ReadMapper mapper2 = new BWReadMapper(genomeSequence2);
+        ReadMapper mapper3 = new BWReadMapper(genomeSequence3);
+        ReadMapper mapper4 = new BWReadMapper(genomeSequence4);
         assertEquals(genomeSequence1, mapper1.getGenomeSequence());
         assertEquals(genomeSequence2, mapper2.getGenomeSequence());
         assertEquals(genomeSequence3, mapper3.getGenomeSequence());
@@ -57,8 +57,8 @@ public class ReadMapperTest {
 
     @Test
     public void testPerfectMapReads() {
-        ReadMapper mapper1 = new ReadMapper("ACACTAGTCGATG");
-        ReadMapper mapper2 = new ReadMapper("TTTTTCCCACATCATCATCA");
+        BWReadMapper mapper1 = new BWReadMapper("ACACTAGTCGATG");
+        BWReadMapper mapper2 = new BWReadMapper("TTTTTCCCACATCATCATCA");
         List<Integer> mappings1 = mapper1.mapRead("AC", 0);
         List<Integer> mappings2 = mapper1.mapRead("A", 0);
         List<Integer> mappings3 = mapper1.mapRead("ACACT", 0);
@@ -100,10 +100,10 @@ public class ReadMapperTest {
 
     @Test
     public void testImperfectMapReads() {
-        ReadMapper mapper1 = new ReadMapper("ACTGCTTGT");
-        ReadMapper mapper2 = new ReadMapper("AAAAATTTCTAGCTA");
-        ReadMapper mapper3 = new ReadMapper("ACTGACTGGTCAG");
-        ReadMapper mapper4 = new ReadMapper(
+        BWReadMapper mapper1 = new BWReadMapper("ACTGCTTGT");
+        BWReadMapper mapper2 = new BWReadMapper("AAAAATTTCTAGCTA");
+        BWReadMapper mapper3 = new BWReadMapper("ACTGACTGGTCAG");
+        BWReadMapper mapper4 = new BWReadMapper(
                 "CATGCTGATCGTGATCGTAGCTAGTCGATCATGCTACTGGTCA"
         );
 
@@ -159,8 +159,8 @@ public class ReadMapperTest {
 
     @Test
     public void testMapReads() {
-        ReadMapper mapper1 = new ReadMapper("ACACTAGTCGATG");
-        ReadMapper mapper2 = new ReadMapper("TTTTTTTTTTTT");
+        BWReadMapper mapper1 = new BWReadMapper("ACACTAGTCGATG");
+        BWReadMapper mapper2 = new BWReadMapper("TTTTTTTTTTTT");
         List<Integer> mappings1 = mapper1.mapRead("CAC", 0);
         List<Integer> mappings2 = mapper1.mapRead("GATGA", 0);
         List<Integer> mappings3 = mapper1.mapRead("ACACTAGTCGATG", 0);
@@ -182,7 +182,15 @@ public class ReadMapperTest {
 
     @Test(expected=IllegalArgumentException.class)
     public void testIllegalCharacter() {
-        ReadMapper mapper = new ReadMapper("ACATAGCTAGCRTAGCA");
+        BWReadMapper mapper = new BWReadMapper("ACATAGCTAGCRTAGCA");
+    }
+
+    @Test
+    public void testBruteForce() {
+        ReadMapper mapper = new BruteForceReadMapper("ACACTACCACACA");
+        List<Integer> mapping = mapper.mapRead("CAC", 0);
+        List<Integer> expected = new ArrayList<>(Arrays.asList(1, 7, 9));
+        assertEquals(expected, mapping);
     }
 
 

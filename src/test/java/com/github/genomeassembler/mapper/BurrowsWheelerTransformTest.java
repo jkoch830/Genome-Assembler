@@ -87,4 +87,6 @@ public class BurrowsWheelerTransformTest {
         }
         return suffixArray;
     }
+
+
 }

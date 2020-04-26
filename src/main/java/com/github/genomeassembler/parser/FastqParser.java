@@ -28,14 +28,22 @@ public class FastqParser {
         List<String> reads = new ArrayList<>();
         BufferedReader br = Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8);
         boolean nextHasRead = false;
-        for (String line = br.readLine(); line != null; line = br.readLine()) {
+        String line, read;
+        int numN = 0;
+        for (line = br.readLine(); line != null; line = br.readLine()) {
             if (line.charAt(0) != '@' && nextHasRead) {
-                reads.add(line.replaceAll("\\s", ""));
+                read = line.replaceAll("\\s", "");
+                if (line.contains("N")) {
+                    numN++;
+                }
+                reads.add(line.replaceAll("N", "G"));
+
                 nextHasRead = false;
             } else if (line.charAt(0) == '@') {
                 nextHasRead = true;
             }
         }
+        System.out.println(numN + " reads had an N");
         return reads;
     }
 

@@ -2,11 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/AssemblerParameters.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BWReadMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BruteForceReadMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/james.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/james.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/BasicDeBruijnGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/BasicDeBruijnGraph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/debruijn/DeBruijnAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/ReadMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/ReadMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastqParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastqParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/GenomeAssemblerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/GenomeAssemblerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/BurrowsWheelerTransformTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/BurrowsWheelerTransformTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/ReadMapperTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/github/genomeassembler/mapper/ReadMapperTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +42,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -47,13 +58,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.13642055" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
@@ -61,26 +73,19 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.GenomeAssemblerTest">
-    <configuration name="BurrowsWheelerTransformTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.mapper.BurrowsWheelerTransformTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.github.genomeassembler.Main" />
+      <module name="Genome_Aseembler.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.genomeassembler.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="GenomeAssemblerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -102,12 +107,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="GenomeAssemblerTest.testExactReadMapping" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="GenomeAssemblerTest.testExactContigGenerationFullCoverage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testExactReadMapping&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testExactContigGenerationFullCoverage&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -122,12 +127,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="GenomeAssemblerTest.testReverseComplementaryReadMapping" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="GenomeAssemblerTest.testExactContigGenerationOverlap" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testReverseComplementaryReadMapping&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testExactContigGenerationOverlap&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -142,12 +147,12 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ReadMapperTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="GenomeAssemblerTest.testTwoErrorContigGenerationOverlap" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.mapper.ReadMapperTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testTwoErrorContigGenerationOverlap&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -163,19 +168,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.BurrowsWheelerTransformTest" />
-      <item itemvalue="Gradle.GenomeAssemblerTest.testReverseComplementaryReadMapping" />
-      <item itemvalue="Gradle.GenomeAssemblerTest.testExactReadMapping" />
-      <item itemvalue="Gradle.ReadMapperTest" />
+      <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationOverlap" />
+      <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationFullCoverage" />
+      <item itemvalue="Gradle.GenomeAssemblerTest.testTwoErrorContigGenerationOverlap" />
       <item itemvalue="Gradle.GenomeAssemblerTest" />
+      <item itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.GenomeAssemblerTest" />
-        <item itemvalue="Gradle.GenomeAssemblerTest.testExactReadMapping" />
-        <item itemvalue="Gradle.GenomeAssemblerTest.testReverseComplementaryReadMapping" />
-        <item itemvalue="Gradle.ReadMapperTest" />
-        <item itemvalue="Gradle.BurrowsWheelerTransformTest" />
+        <item itemvalue="Gradle.GenomeAssemblerTest.testTwoErrorContigGenerationOverlap" />
+        <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationFullCoverage" />
+        <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationOverlap" />
       </list>
     </recent_temporary>
   </component>
@@ -206,7 +211,7 @@
       <workItem from="1587001136871" duration="1618000" />
       <workItem from="1587003245458" duration="6877000" />
       <workItem from="1587083381027" duration="8028000" />
-      <workItem from="1587701160007" duration="24470000" />
+      <workItem from="1587701160007" duration="66199000" />
     </task>
     <servers />
   </component>
@@ -230,29 +235,33 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="451" y="260" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1587751223856" />
-    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1587140649253">
+    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1587852277082">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1587140649253" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587772666011">
+    <state x="533" y="166" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1587852277082" />
+    <state x="335" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587812405849">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587772666011" />
+    <state x="335" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1587812405849" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587867572750">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587867572750" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1587701136325" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587772666010">
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587867572748">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587772666010" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587867572748" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1587701136323" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587772666009">
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587867572747">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587772666009" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587867572747" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1587701136322" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587772666010">
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587867572749">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587772666010" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587867572749" />
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1587701136324" />
     <state width="1398" height="303" key="GridCell.Tab.1.bottom" timestamp="1587752483286">
       <screen x="0" y="0" width="1440" height="900" />
@@ -270,10 +279,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="303" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1587752483286" />
-    <state x="208" y="31" key="SettingsEditor" timestamp="1587084359745">
+    <state x="208" y="31" key="SettingsEditor" timestamp="1587859182260">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587084359745" />
+    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587859182260" />
     <state width="500" height="445" key="SwitcherDM" timestamp="1587673379682">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -283,13 +292,17 @@
     </state>
     <state x="399" y="278" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1587083397540" />
     <state x="399" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1586986876273" />
+    <state x="312" y="175" width="816" height="550" key="find.popup" timestamp="1587853652892">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="312" y="175" width="816" height="550" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1587853652892" />
     <state x="427" y="73" key="refactoring.ChangeSignatureDialog" timestamp="1587666584028">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="427" y="73" key="refactoring.ChangeSignatureDialog/0.0.1440.900@0.0.1440.900" timestamp="1587666584028" />
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1587679090438">
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1587814012362">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1587679090438" />
+    <state x="385" y="196" width="670" height="676" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1587814012362" />
   </component>
 </project>

@@ -25,6 +25,7 @@ public class BasicDeBruijnGraph implements DeBruijnGraph {
         inNeighbors = new HashMap<>();
     }
 
+
     @Override
     public void addKmer(String kmer) {
         int k = kmer.length();

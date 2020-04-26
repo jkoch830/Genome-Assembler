@@ -11,12 +11,6 @@ import java.util.Set;
  */
 public class DeBruijnAnalyzer {
 
-    private static boolean isOneInOneOut(DeBruijnGraph graph, String node) {
-        return graph.getInDegree(node) == graph.getOutDegree(node) &&
-                graph.getInDegree(node) == 1;
-    }
-
-
     /**
      * Generates all contigs in the graph by finding all maximal
      * non-branching paths in the graph
@@ -56,7 +50,6 @@ public class DeBruijnAnalyzer {
     }
 
 
-
     /**
      * Retrieves all the isolated cycles in the graph
      * @param graph The graph being searched
@@ -90,4 +83,12 @@ public class DeBruijnAnalyzer {
         }
         return cycles;
     }
+
+
+    private static boolean isOneInOneOut(DeBruijnGraph graph, String node) {
+        return graph.getInDegree(node) == graph.getOutDegree(node) &&
+                graph.getInDegree(node) == 1;
+    }
+
+
 }
