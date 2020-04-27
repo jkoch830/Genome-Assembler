@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BurrowsWheelerTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BurrowsWheelerTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/results.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/results.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +61,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Gradle.BurrowsWheelerTransformTest.testTransform">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.genomeassembler.Main" />
       <module name="Genome_Aseembler.main" />
@@ -74,6 +74,26 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="BurrowsWheelerTransformTest.testTransform" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.mapper.BurrowsWheelerTransformTest.testTransform&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":cleanTest" />
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
     </configuration>
     <configuration name="GenomeAssemblerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -115,26 +135,6 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="GenomeAssemblerTest.testExactContigGenerationFullCoverage" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.github.genomeassembler.GenomeAssemblerTest.testExactContigGenerationFullCoverage&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":cleanTest" />
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="GenomeAssemblerTest.testTwoErrorContigGenerationOverlap" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -156,19 +156,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationFullCoverage" />
       <item itemvalue="Gradle.GenomeAssemblerTest.testTwoErrorContigGenerationOverlap" />
       <item itemvalue="Gradle.GenomeAssemblerTest" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Gradle.GenomeAssemblerTest.temp" />
+      <item itemvalue="Gradle.BurrowsWheelerTransformTest.testTransform" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.BurrowsWheelerTransformTest.testTransform" />
         <item itemvalue="Gradle.GenomeAssemblerTest.temp" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Gradle.GenomeAssemblerTest" />
         <item itemvalue="Gradle.GenomeAssemblerTest.testTwoErrorContigGenerationOverlap" />
-        <item itemvalue="Gradle.GenomeAssemblerTest.testExactContigGenerationFullCoverage" />
       </list>
     </recent_temporary>
   </component>
@@ -199,7 +199,7 @@
       <workItem from="1587001136871" duration="1618000" />
       <workItem from="1587003245458" duration="6877000" />
       <workItem from="1587083381027" duration="8028000" />
-      <workItem from="1587701160007" duration="88419000" />
+      <workItem from="1587701160007" duration="93149000" />
     </task>
     <servers />
   </component>
@@ -231,25 +231,25 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="335" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1587812405849" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587943361916">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587960730509">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587943361916" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587960730509" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1587701136325" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587943361914">
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587960730508">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587943361914" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587960730508" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1587701136323" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587943361913">
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587960730507">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587943361913" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587960730507" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1587701136322" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587943361914">
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587960730508">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587943361914" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587960730508" />
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1587701136324" />
     <state width="1398" height="303" key="GridCell.Tab.1.bottom" timestamp="1587752483286">
       <screen x="0" y="0" width="1440" height="900" />

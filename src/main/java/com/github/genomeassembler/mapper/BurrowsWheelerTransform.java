@@ -1,10 +1,8 @@
 package com.github.genomeassembler.mapper;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 
 /**
@@ -62,7 +60,9 @@ public class BurrowsWheelerTransform {
             }
             p = r;
             prevChar = c;
+            System.out.println("suffix complete");
         }
+
         return String.valueOf(transformed);
     }
 
