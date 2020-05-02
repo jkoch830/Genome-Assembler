@@ -6,6 +6,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+/**
+ * Class containing methods used to parse genome files
+ */
 public class FastaParser {
     public static String parseGffFile(String path) {
         int iteration = 0;

@@ -2,17 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/results/results1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/results/results2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/results/results3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/results/results4.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/M30a.fastq" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/M30b.fastq" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/Mycoplasma.tar.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BurrowsWheelerTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BurrowsWheelerTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BWReadMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BWReadMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastaParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastaParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastqParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastqParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/results.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/results.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/M30BWT.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +210,7 @@
       <workItem from="1587001136871" duration="1618000" />
       <workItem from="1587003245458" duration="6877000" />
       <workItem from="1587083381027" duration="8028000" />
-      <workItem from="1587701160007" duration="104064000" />
+      <workItem from="1587701160007" duration="104622000" />
     </task>
     <servers />
   </component>

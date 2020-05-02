@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    private final static String READS_PATH_ONE = "../832a.fastq";
-    private final static String READS_PATH_TWO = "../832b.fastq";
-    private final static String GENOME_PATH = "src/main/resources/M2282.gff";
+    private final static String READS_PATH_ONE = "";
+    private final static String READS_PATH_TWO = "";
+    private final static String GENOME_PATH = "";
 
     public static void main(String[] args) {
         try {

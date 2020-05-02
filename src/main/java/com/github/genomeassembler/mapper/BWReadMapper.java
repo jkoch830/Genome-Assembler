@@ -1,20 +1,11 @@
 package com.github.genomeassembler.mapper;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+
 
 
 /**
@@ -290,25 +281,4 @@ public class BWReadMapper implements ReadMapper {
         else { throw new IllegalArgumentException("Invalid character: " + c); }
         return offset + occurrence;
     }
-
-    public String quickSetup() {
-        try {
-            String path = "src/main/resources/M30BWT.txt";
-            BufferedReader br = Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8);
-            String bwt = br.readLine().replaceAll("\\s", "");
-            String array = br.readLine().replaceAll(
-                    "\\s", "").replaceAll(
-                            "\\[", "").replaceAll(
-                                    "]", "");
-            String[] splitArray = array.split(",");
-            this.suffixArray = Stream.of(splitArray).mapToInt(Integer::parseInt).toArray();
-            return bwt;
-        } catch (Exception e) {
-            System.out.println("Error reading file: " + e);
-            return "";
-        }
-    }
-
-
-
 }
