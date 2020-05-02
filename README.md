@@ -1,2 +1,2 @@
 # Genome-Assembler
-Genome assembler for short paired-end reads written in Java.
+Genome assembler for short reads written in Java.
