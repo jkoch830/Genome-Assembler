@@ -5,7 +5,7 @@ Mismatch tolerance higher bound: 7
 Mismatch tolerance step: 1
 
 ASSEMBLY DETAILS:
-Total time: 310 minutes
+Total time: 328 minutes
 N50: 79977
 Longest Contig Length: 235202bp
 Coverage of reads: 187x

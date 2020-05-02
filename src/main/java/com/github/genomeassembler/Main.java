@@ -16,17 +16,16 @@ public class Main {
             String genome = FastaParser.parseGffFile(GENOME_PATH);
             List<String> readsOne = FastqParser.getReads(READS_PATH_ONE);
             List<String> readsTwo = FastqParser.getReads(READS_PATH_TWO);
-
             List<String> combinedReads = new ArrayList<>(readsOne.size() + readsTwo.size());
             combinedReads.addAll(readsOne);
             combinedReads.addAll(readsTwo);
             GenomeAssembler genomeAssembler = new GenomeAssembler(genome, combinedReads);
             AssemblerParameters parameters = new AssemblerParameters.Builder().
                     mismatchToleranceLowerBound(0).
-                    mismatchToleranceHigherBound(3).
+                    mismatchToleranceHigherBound(7).
                     mismatchToleranceStep(1).
                     minContigOutputLength(250).
-                    kmerLength(45).
+                    kmerLength(30).
                     build();
             genomeAssembler.setAssemblerParameters(parameters);
             genomeAssembler.assemble();

@@ -9,9 +9,7 @@ import com.github.genomeassembler.mapper.ReadMapper;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +42,6 @@ public class GenomeAssembler {
     private final static String FINISHED_MSG = "Contig generation " +
             "complete\nWriting to file...";
 
-    private final static int REQUIRED_OVERLAP = 0;
     private final static int NUM_THREADS = 4;
 
     private final ReadMapper referenceGenomeReadMapper;
@@ -155,6 +152,11 @@ public class GenomeAssembler {
         this.removeSmallGraphContigs();
         System.out.println(REMAINING_CONTIGS_MSG + this.graphContigs.size());
 
+        // Map graph contigs to reference and form contigs
+        this.unmappedReads.addAll(this.graphContigs);
+        this.mapReads(0);
+        this.formContigs();
+
         // Combine/resolve contigs
         System.out.println(RESOLVING_MSG);
         this.resolveContigs();
@@ -185,6 +187,15 @@ public class GenomeAssembler {
         try {
             String path = "src/main/resources/results.txt";
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+            writer.write("PARAMETERS:\n");
+            writer.write("k: " + this.parameters.getKmerLength() + "\n");
+            writer.write("Mismatch tolerance lower bound: " +
+                    this.parameters.getMismatchToleranceLowerBound() + "\n");
+            writer.write("Mismatch tolerance higher bound: " +
+                    this.parameters.getMismatchToleranceHigherBound() + "\n");
+            writer.write("Mismatch tolerance step: " +
+                    this.parameters.getMismatchToleranceStep() + "\n");
+            writer.write("\n");
             writer.write("ASSEMBLY DETAILS:\n");
             writer.write("Total time: " + (totalTime / 60000) + " minutes\n");
             writer.write("N50: " + N50 + "\n");
@@ -193,6 +204,7 @@ public class GenomeAssembler {
             writer.write("Coverage of super contigs: " + superContigCoverage + "%\n");
             writer.write("Coverage of contigs: " + allContigCoverage + "%\n");
             writer.write("Number of unknown bases: " + numGaps + "\n");
+            writer.write("\n");
             writer.write("======================Super Contigs======================\n");
             for (int index : sortedIndices) {
                 String contig = this.superContigs.get(index);
@@ -201,16 +213,17 @@ public class GenomeAssembler {
                 writer.write("Super Contig length: " + size + "\n");
                 writer.write(contig + "\n");
             }
+            writer.write("\n");
             writer.write("======================Graph Contigs======================\n");
             for (String contig : this.graphContigs) {
                 int size = contig.length();
                 writer.write("Contig length: " + size + "\n");
                 writer.write(contig + "\n");
             }
+            writer.write("\n");
             writer.write("======================Assembled Genome======================\n");
             writer.write(assembledGenome + "\n");
             writer.close();
-
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error writing to file");
@@ -259,7 +272,7 @@ public class GenomeAssembler {
         for (String contig : this.superContigs.values()) {
             totalLength += contig.length();
         }
-        return totalLength / ((double)this.refGenomeLength);
+        return 100 * totalLength / ((double)this.refGenomeLength);
     }
 
     private double calculateAllContigCoverage() {
@@ -270,7 +283,7 @@ public class GenomeAssembler {
         for (String contig : this.graphContigs) {
             totalLength += contig.length();
         }
-        return totalLength / ((double)this.refGenomeLength);
+        return 100 * totalLength / ((double)this.refGenomeLength);
     }
 
     private int calculateN50() {

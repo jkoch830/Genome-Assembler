@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2224b20-9695-4610-9487-be4925d74169" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/results/results1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/results/results2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/results/results3.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/results/results4.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/GenomeAssembler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BurrowsWheelerTransform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/mapper/BurrowsWheelerTransform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastqParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/genomeassembler/parser/FastqParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/results.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/results.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,18 +47,22 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1aavkrBhZike5TcS50MpZn90yCr" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/results" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.13642055" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -58,10 +70,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/results" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.BurrowsWheelerTransformTest.testTransform">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.genomeassembler.Main" />
       <module name="Genome_Aseembler.main" />
@@ -199,22 +212,25 @@
       <workItem from="1587001136871" duration="1618000" />
       <workItem from="1587003245458" duration="6877000" />
       <workItem from="1587083381027" duration="8028000" />
-      <workItem from="1587701160007" duration="93149000" />
+      <workItem from="1587701160007" duration="104064000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="320" y="115" key="#Notifications" timestamp="1586986918098">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="320" y="115" key="#Notifications/0.0.1440.900@0.0.1440.900" timestamp="1586986918098" />
-    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587083652276">
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587964927213">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1587083652276" />
+    <state x="184" y="112" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1587964927213" />
     <state x="100" y="79" width="1240" height="719" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1587668256046">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
@@ -231,25 +247,25 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="335" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1440.900@0.0.1440.900" timestamp="1587812405849" />
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1587960730509">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1588362808553">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1587960730509" />
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1588362808553" />
     <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1587701136325" />
-    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1587960730508">
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1588362808551">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1587960730508" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1588362808551" />
     <state width="1398" height="245" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1587701136323" />
-    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1587960730507">
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1588362808549">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1587960730507" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1588362808549" />
     <state width="1398" height="245" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1587701136322" />
-    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1587960730508">
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1588362808552">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1587960730508" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1588362808552" />
     <state width="1398" height="245" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1587701136324" />
     <state width="1398" height="303" key="GridCell.Tab.1.bottom" timestamp="1587752483286">
       <screen x="0" y="0" width="1440" height="900" />
@@ -267,10 +283,14 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="303" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1587752483286" />
-    <state x="208" y="31" key="SettingsEditor" timestamp="1587859182260">
+    <state x="349" y="151" key="NewModule_or_Project.wizard" timestamp="1587965517010">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587859182260" />
+    <state x="349" y="151" key="NewModule_or_Project.wizard/0.0.1440.900@0.0.1440.900" timestamp="1587965517010" />
+    <state x="208" y="31" key="SettingsEditor" timestamp="1587964798993">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="208" y="31" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1587964798993" />
     <state width="500" height="445" key="SwitcherDM" timestamp="1587673379682">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

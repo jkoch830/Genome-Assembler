@@ -60,7 +60,6 @@ public class BurrowsWheelerTransform {
             }
             p = r;
             prevChar = c;
-            System.out.println("suffix complete");
         }
 
         return String.valueOf(transformed);
